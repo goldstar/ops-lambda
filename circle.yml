@@ -8,6 +8,6 @@ machine:
 
 test:
   pre:
-    - for $service in $SERVERLESS_SERVICES; do cd ./$service && npm install && cd ..; done
+    - for service in $SERVERLESS_SERVICES; do cd ./$service && npm install && cd ..; done
   override: 
-    - for $service in $SERVERLESS_SERVICES; do cd ./$service && npm test && cd ..; done
+    - for service in $SERVERLESS_SERVICES; do cd ./$service && npm test && cd ..; done
