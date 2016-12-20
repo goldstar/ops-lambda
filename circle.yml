@@ -1,0 +1,8 @@
+---
+machine:
+  node:
+    version: v4.3.0
+
+test:
+  override: 
+    - cd ./events && npm test && cd ..
