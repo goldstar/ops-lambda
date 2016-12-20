@@ -2,7 +2,12 @@
 machine:
   node:
     version: v4.3.0
+  environment:
+    # Separate modules with a space.
+    SERVERLESS_SERVICES: "events"
 
 test:
+  pre:
+    - for $service in $SERVERLESS_SERVICES; do cd ./$service && npm install && cd ..; done
   override: 
-    - cd ./events && npm test && cd ..
+    - for $service in $SERVERLESS_SERVICES; do cd ./$service && npm test && cd ..; done
