@@ -1,0 +1,23 @@
+service: events
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  memorySize: 128
+  region: us-west-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "kinesis:Get*"
+        - "kinesis:ListStreams"
+        - "kinesis:DescribeStream"
+      Resource:
+        - "arn:aws:kinesis:us-west-1:341339899620:stream/goldstar-${opt:stage}-events"
+        - "arn:aws:kinesis:us-west-1:341339899620:stream/goldstar-${opt:stage}-events-errors"
+
+functions:
+  errors:
+    handler: handler.errors
+    events:
+      - stream:
+          arn: "arn:aws:kinesis:us-west-1:341339899620:stream/goldstar-${opt:stage}-events-errors"

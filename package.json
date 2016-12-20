@@ -1,0 +1,22 @@
+{
+  "name": "ops-lambda",
+  "version": "1.0.0",
+  "description": "Amazon Lambda functions for Goldstar",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goldstar/ops-lambda.git"
+  },
+  "author": "Goldstar Events, Inc.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goldstar/ops-lambda/issues"
+  },
+  "homepage": "https://github.com/goldstar/ops-lambda#readme",
+  "dependencies": {
+    "serverless": "^1.4.0"
+  }
+}
