@@ -21,6 +21,11 @@ plugins:
 package:
   individually: true
 
+custom:
+  optimize:
+    minify: true
+    presets: ['es2016']
+
 functions:
   errors:
     handler: handler.errors
