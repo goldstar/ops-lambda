@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/goldstar/ops-lambda#readme",
   "dependencies": {
-    "serverless": "^1.4.0"
+    "babel-preset-es2016": "^6.16.0",
+    "serverless": "^1.4.0",
+    "serverless-plugin-optimize": "^1.0.0-rc.14"
   }
 }

@@ -1,11 +1,10 @@
 'use strict';
 
-module.exports.errors = (event, context, callback) => {
-  event.Records.forEach((record) => {
-    var buf = new Buffer(record.kinesis.data, 'base64').toString('ascii');
-    var data = JSON.parse(buf); 
-    console.log("Log data received = " + JSON.stringify(data))
-  });
+import Processor from './types';
 
-  callback(null, "Success");
+module.exports.process_event = (event, context, callback) => {
+  processor = new Processor(event);
+  processor.process(() => {
+    callback(null, "Records have been processed");
+  });
 };

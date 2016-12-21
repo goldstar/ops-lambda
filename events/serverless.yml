@@ -12,8 +12,8 @@ provider:
         - "kinesis:ListStreams"
         - "kinesis:DescribeStream"
       Resource:
-        - "arn:aws:kinesis:us-west-1:341339899620:stream/goldstar-${opt:stage}-events"
-        - "arn:aws:kinesis:us-west-1:341339899620:stream/goldstar-${opt:stage}-events-errors"
+        - ${self:custom.events_stream}
+        - ${self:custom.errors_stream}
 
 plugins:
   - serverless-plugin-optimize
@@ -22,13 +22,17 @@ package:
   individually: true
 
 custom:
+  events_stream: "arn:aws:kinesis:us-west-1:341339899620:stream/goldstar-${opt:stage}-events"
+  errors_stream: "arn:aws:kinesis:us-west-1:341339899620:stream/goldstar-${opt:stage}-events-errors"
   optimize:
-    minify: true
+    minify: false
     presets: ['es2016']
 
 functions:
-  errors:
-    handler: handler.errors
+  process_event:
+    handler: handler.process_event
+    environment:
+      errors_stream: ${self:custom.errors_stream}
     events:
       - stream:
-          arn: "arn:aws:kinesis:us-west-1:341339899620:stream/goldstar-${opt:stage}-events-errors"
+          arn: ${self:custom.events_stream}
