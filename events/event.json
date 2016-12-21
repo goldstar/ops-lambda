@@ -5,7 +5,7 @@
       "eventVersion": "1.0",
       "kinesis": {
         "partitionKey": "partitionKey-3",
-        "data": "eyJpZCI6MTQ1Mjk0OCwicmVmX2NvZGUiOm51bGwsIm1hcl9jb2RlIjpudWxsLCJwcm9tbyI6bnVsbCwiZnJvbV91cmwiOm51bGwsInRhcmdldF91cmwiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAvYWRtaW4vYXBpX2Jyb3dzZXIiLCJ1c2VyX2lkIjoyMCwicmVzdWx0IjowLCJjcmVhdGVkX2F0IjoiMjAxNi0xMi0xMlQxMDo1MDozMy4wMDAtMDg6MDAiLCJzb3VyY2UiOm51bGwsImNhbXBhaWduIjpudWxsLCJwbGFjZW1lbnQiOm51bGwsImtleXdvcmQiOm51bGwsImNyZWF0aXZlIjpudWxsLCJtZWRpdW0iOm51bGwsIm1hdGNodHlwZSI6bnVsbCwiaXAiOiI6OjEiLCJ1c2VyX2FnZW50IjoiTW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTJfMSkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzU0LjAuMjg0MC45OCBTYWZhcmkvNTM3LjM2Iiwib3JpZ2luYWxfcmVmZXJyZXJfaWQiOjEzOTA3MjQsImNoYW5uZWxfc291cmNlX2lkIjpudWxsLCJyZWZlcnJpbmdfdXNlcl9pZCI6bnVsbCwicHN0X2NyZWF0ZWRfb24iOm51bGwsImRldmljZV9wbGF0Zm9ybV9pZCI6bnVsbCwiZHdfdGltZXN0YW1wZWRfYXQiOm51bGx9",
+        "data": "ewogICJ0eXBlIjogImVjaG8iLAogICJkYXRhIjogewogICAgIm51bWJlcnMiOiBbMSwgMiwgM10KICB9Cn0K",
         "kinesisSchemaVersion": "1.0",
         "sequenceNumber": "49545115243490985018280067714973144582180062593244200961"
       },

@@ -24,9 +24,9 @@ package:
 custom:
   events_stream: "arn:aws:kinesis:us-west-1:341339899620:stream/goldstar-${opt:stage}-events"
   errors_stream: "arn:aws:kinesis:us-west-1:341339899620:stream/goldstar-${opt:stage}-events-errors"
-  optimize:
-    minify: false
-    presets: ['es2016']
+  browserify:
+    presets:
+      - es2016
 
 functions:
   process_event:

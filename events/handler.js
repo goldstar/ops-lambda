@@ -1,9 +1,9 @@
 'use strict';
 
-import Processor from './types';
+import Processor from './processor';
 
 module.exports.process_event = (event, context, callback) => {
-  processor = new Processor(event);
+  const processor = new Processor(event);
   processor.process(() => {
     callback(null, "Records have been processed");
   });
