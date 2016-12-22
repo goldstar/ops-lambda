@@ -19,6 +19,7 @@
   "dependencies": {
     "babel-preset-es2016": "^6.16.0",
     "serverless": "^1.4.0",
+    "serverless-plugin-browserify": "^1.0.1",
     "serverless-plugin-optimize": "^1.0.0-rc.14"
   }
 }

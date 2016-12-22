@@ -1,15 +1,13 @@
 import AWS from 'aws-sdk';
 import uuid from 'uuid';
 
-import Echo from './types/echo';
+import { Types } from './types';
+import { RecordException } from './types/exceptions';
 
 export default class Processor {
-  constructor(event) {
-    this.kinesis = new AWS.Kinesis();
+  constructor(event, kinesis) {
+    this.kinesis = (kinesis === undefined) ? new AWS.Kinesis() : kinesis;
     this.event = event;
-    this.types = {
-      'echo': Echo
-    };
   }
 
   process(callback) {
@@ -19,13 +17,13 @@ export default class Processor {
     }
     
     this.event.Records.forEach((record) => {
-      try {
+//      try {
         const data = this.getData(record);
-        const processor = new this.types[data.type](data);
+        const processor = Types.create(data.type, data);
         processor.process();
-      } catch (e) {
-        this.badEvent(e, record);
-      }
+//      } catch (e) {
+//        this.badEvent(e, record);
+//      }
     });
 
     if (typeof callback === 'function') {
@@ -35,26 +33,26 @@ export default class Processor {
 
   getData(record) {
     if (!record.hasOwnProperty('kinesis') || !record.hasOwnProperty('data')) {
-      throw TypeException("Malformed Kinesis record", this.record);
+      throw RecordException("Malformed Kinesis record", record);
     }
 
     try {
-      const buf = new Buffer(this.record.kinesis.data, 'base64').toString('ascii');
+      const buf = new Buffer(record.kinesis.data, 'base64').toString('ascii');
       const data = JSON.parse(buf);
     } catch (e) {
-      throw TypeException("Could not base64 decode record", this.record);
+      throw RecordException("Could not base64 decode record", record);
     }
 
     if (!data.hasOwnProperty('type')) {
-      throw TypeException("Event type not specified", this.record);
+      throw RecordException("Event type not specified", record);
     }
 
-    if (!this.types.hasOwnProperty(data.type)) {
-      throw TypeException("Event type is unknown", this.record);
-    }
+    return data;
   }
 
   badEvent(e, record) {
+    console.log(e);
+
     const payload = {
       'error': e,
       'record': record

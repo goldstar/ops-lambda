@@ -8,9 +8,7 @@ provider:
   iamRoleStatements:
     - Effect: "Allow"
       Action:
-        - "kinesis:Get*"
-        - "kinesis:ListStreams"
-        - "kinesis:DescribeStream"
+        - "kinesis:*"
       Resource:
         - ${self:custom.events_stream}
         - ${self:custom.errors_stream}
