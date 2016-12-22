@@ -27,8 +27,8 @@ custom:
       - es2016
 
 functions:
-  process_event:
-    handler: handler.process_event
+  processEvent:
+    handler: handler.processEvent
     environment:
       errors_stream: ${self:custom.errors_stream}
     events:

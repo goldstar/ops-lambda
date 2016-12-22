@@ -1,30 +1,26 @@
 import { InvalidType, InvalidTypeException } from './exceptions';
 
-export class Type {
-  constructor(data) {
-    this.data = data;
-  }
-};
-
-export const Types = {
-  registeredTypes: new Map(),
+const Types = {
+  _registeredTypes: new Map(),
 
   register(className, cls) {
-    if (!(Factory.registeredTypes.has(className) &&
+    if (!(Types._registeredTypes.has(className) &&
       cls.prototype instanceof Type)) {
-      Factory._registeredTypes.add(className, cls);
+      Types._registeredTypes.set(className, cls);
     } else {
       throw new InvalidTypeException(cls);
     }
   },
 
-  create(className, ...options) {
-    if (!Factory.registeredTypes.has(className)) {
-      throw InvalidType(className);
+  create(data) {
+    if (!Types._registeredTypes.has(data.type)) {
+      throw new InvalidType(data.type);
     }
 
-    const cls = this.registeredTypes.get(className);
-    const instance = new cls(...options);
+    const cls = this._registeredTypes.get(data.type);
+    const instance = new cls(data);
     return instance;
   }
-};
+}
+
+export default Types;

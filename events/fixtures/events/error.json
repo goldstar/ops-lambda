@@ -1,0 +1,19 @@
+{
+  "Records": [
+    {
+      "eventID": "shardId-000000000000:49545115243490985018280067714973144582180062593244200961",
+      "eventVersion": "1.0",
+      "kinesis": {
+        "partitionKey": "partitionKey-3",
+        "data": "aaaaewogICJ0eXBlIjogImVjaG8iLAogICJkYXRhIjogewogICAgIm51bWJlcnMiOiBbMSwgMiwgM10KICB9Cn0K",
+        "kinesisSchemaVersion": "1.0",
+        "sequenceNumber": "49545115243490985018280067714973144582180062593244200961"
+      },
+      "invokeIdentityArn": "",
+      "eventName": "aws:kinesis:record",
+      "eventSourceARN": "arn:aws:kinesis:us-west-1:341339899620:stream/goldstar-dev-events-errors",
+      "eventSource": "aws:kinesis",
+      "awsRegion": "us-east-1"
+    }
+  ]
+}

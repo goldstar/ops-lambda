@@ -2,9 +2,14 @@
 
 import Processor from './processor';
 
-export function process_event(event, context, callback) {
+export function processEvent(event, context, callback) {
   const processor = new Processor(event);
-  processor.process(() => {
-    callback(null, "Records have been processed");
-  });
+  try {
+    processor.process((success, errors) => {
+      const msg = "Success = " + success.length + ", Errors = " + errors.length;
+      callback(null, msg);
+    });
+  } catch (e) {
+    callback(null, "ERROR: " + e);
+  }
 };

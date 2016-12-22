@@ -1,8 +1,12 @@
 import AWS from 'aws-sdk';
 import uuid from 'uuid';
 
-import { Types } from './types';
+import Types from './types';
+import Echo from './types/echo';
+
 import { RecordException } from './types/exceptions';
+
+Types.register('echo', Echo);
 
 export default class Processor {
   constructor(event, kinesis) {
@@ -13,46 +17,56 @@ export default class Processor {
   process(callback) {
     if (!this.event.hasOwnProperty('Records') ||
         !Array.isArray(this.event.Records)) {
-      throw "event.Record is missing; this is bad!";
+      throw new Error("event.Record is missing; this is bad!");
     }
     
+    let success = [];
+    let errors = [];
     this.event.Records.forEach((record) => {
-//      try {
+      try {
         const data = this.getData(record);
-        const processor = Types.create(data.type, data);
+        const processor = Types.create(data);
         processor.process();
-//      } catch (e) {
-//        this.badEvent(e, record);
-//      }
+        success.push(record);
+      } catch (e) {
+        this.badEvent(e, record);    
+        errors.push(record);
+      }
     });
 
     if (typeof callback === 'function') {
-      callback();
+      callback(success, errors);
     }
   }
 
   getData(record) {
-    if (!record.hasOwnProperty('kinesis') || !record.hasOwnProperty('data')) {
-      throw RecordException("Malformed Kinesis record", record);
+    if (!record.hasOwnProperty('kinesis') ||
+        !record.kinesis.hasOwnProperty('data')) {
+      throw new RecordException("Malformed Kinesis record", record);
     }
 
+    let jsonBlob = '';
     try {
-      const buf = new Buffer(record.kinesis.data, 'base64').toString('ascii');
-      const data = JSON.parse(buf);
+      jsonBlob = new Buffer(record.kinesis.data, 'base64').toString('ascii');
     } catch (e) {
-      throw RecordException("Could not base64 decode record", record);
+      throw new RecordException("Could not base64 decode record", record);
+    }
+
+    let data = {};
+    try {
+      data = JSON.parse(jsonBlob);
+    } catch (e) {
+      throw new RecordException("Could not parse JSON from record data", record);
     }
 
     if (!data.hasOwnProperty('type')) {
-      throw RecordException("Event type not specified", record);
+      throw new RecordException("Event type not specified", record);
     }
 
     return data;
   }
 
   badEvent(e, record) {
-    console.log(e);
-
     const payload = {
       'error': e,
       'record': record
@@ -69,6 +83,8 @@ export default class Processor {
     this.kinesis.putRecord(params, (error, data) => {
       if (error) {
         console.log(error);
+      } else {
+        console.log('BAD RECORD: ' + JSON.stringify(record));
       }
     });
   }

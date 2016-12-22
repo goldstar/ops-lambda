@@ -1,9 +1,7 @@
-import { Type, Types } from './index';
+import { Type } from './base';
 
 export default class Echo extends Type {
   process() {
     console.log(this.data); 
   }
 }
-
-Types.register('echo', Echo);
