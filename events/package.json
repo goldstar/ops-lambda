@@ -4,16 +4,13 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/**/*-test.js",
+    "test": "../node_modules/.bin/mocha --compilers js:babel-register test/**/*-test.js",
     "deploy": "../node_modules/.bin/serverless deploy -v --stage=$STAGE"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.7.16",
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0",
-    "sinon": "^1.17.6",
     "uuid": "^3.0.1"
   }
 }

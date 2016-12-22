@@ -1,41 +1,29 @@
 'use strict';
 
-const assert = require('chai').assert;
-const sinon = require('sinon');
-const handlers = require('../handler');
+import { assert } from 'chai';
+import sinon from 'sinon';
+import * as handlers from '../handler';
+import Echo from '../processor/types/echo';
 
 describe('handlers', () => {
-  describe('#errors', () => {
+  describe('#processEvent', () => {
     it('should log data when there are records', sinon.test(function() {
-      this.spy(console, 'log');
-      const callback = this.spy();
+      const loggingStub = sinon.stub(Echo.prototype, 'log');
+      const callback = sinon.spy();
       const event = {
         'Records': [
           {
             'kinesis': {
-              'data': 'eyJzdWNjZXNzIjogdHJ1ZX0K'
+              'data': 'ewogICJ0eXBlIjogImVjaG8iLAogICJkYXRhIjogewogICAgIm51bWJlcnMiOiBbMSwgMiwgM10KICB9Cn0K'
             }
           }
         ]
       }
 
-      handlers.errors(event, this.spy(), callback);
-      assert.isTrue(console.log.calledOnce);
+      handlers.processEvent(event, sinon.spy(), callback);
       assert.isTrue(callback.calledOnce);
-      assert.isTrue(callback.calledWith(null, "Success"));
-    }));
-
-    it('should not log data when there are no records', sinon.test(function() {
-      this.spy(console, 'log');
-      const callback = this.spy();
-      const event = {
-        'Records': []
-      }
-
-      handlers.errors(event, this.spy(), callback);
-      assert.isFalse(console.log.called);
-      assert.isTrue(callback.calledOnce);
-      assert.isTrue(callback.calledWith(null, "Success"));
+      assert.isTrue(callback.calledWith(null, "Success = 1, Errors = 0"));
+      assert.isTrue(loggingStub.calledOnce);
     }));
   });
 });

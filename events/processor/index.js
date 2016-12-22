@@ -1,3 +1,5 @@
+'use strict';
+
 import AWS from 'aws-sdk';
 import uuid from 'uuid';
 
