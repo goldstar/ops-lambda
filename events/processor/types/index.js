@@ -1,4 +1,4 @@
-import { InvalidType, InvalidTypeException } from './exceptions';
+import { InvalidTypeClassException, InvalidTypeException } from './exceptions';
 
 const Types = {
   _registeredTypes: new Map(),
@@ -8,13 +8,13 @@ const Types = {
       cls.prototype instanceof Type)) {
       Types._registeredTypes.set(className, cls);
     } else {
-      throw new InvalidTypeException(cls);
+      throw new InvalidTypeException(className, cls);
     }
   },
 
   create(data) {
     if (!Types._registeredTypes.has(data.type)) {
-      throw new InvalidType(data.type);
+      throw new InvalidTypeClassException(data.type);
     }
 
     const cls = this._registeredTypes.get(data.type);

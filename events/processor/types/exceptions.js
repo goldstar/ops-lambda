@@ -6,12 +6,13 @@ export class RecordException {
 }
 
 export class InvalidTypeException {
-  constructor(cls) {
+  constructor(className, cls) {
+    this.className = className;
     this.cls = cls;
   }
 }
 
-export class InvalidType {
+export class InvalidTypeClassException {
   constructor(className) {
     this.className = className;
   }
