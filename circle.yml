@@ -11,3 +11,9 @@ test:
     - for service in $SERVERLESS_SERVICES; do cd ./$service && npm install && cd ..; done
   override: 
     - for service in $SERVERLESS_SERVICES; do cd ./$service && npm test && cd ..; done
+
+deployment:
+  integration:
+    branch: develop
+    commands:
+      - STAGE=integration for service in $SERVERLESS_SERVICES; do cd ./$service && npm run deploy && cd ..; done
