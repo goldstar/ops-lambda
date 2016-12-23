@@ -16,7 +16,7 @@ describe('Processor', () => {
     it('sets event', () => {
       const event = {'Records': []}
       const processor = new Processor(event);
-      assert.equal(processor.event, event);
+      assert.deepEqual(processor.event, event);
     });
   });
 
@@ -81,9 +81,7 @@ describe('Processor', () => {
 
       const processor = new Processor(record);
       const data = processor.getData(record);
-      assert.property(data, 'type');
-      assert.equal(data.type, 'echo')
-      assert.equal(data.data.length, 3);
+      assert.deepEqual(data, event); 
     });
   });
 

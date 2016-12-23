@@ -12,7 +12,7 @@ Types.register('echo', Echo);
 
 export default class Processor {
   constructor(event, kinesis) {
-    this.kinesis = (kinesis === undefined) ? new AWS.Kinesis() : kinesis;
+    this.kinesis = kinesis || new AWS.Kinesis();
     this.event = event;
   }
 
