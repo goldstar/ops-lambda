@@ -1,3 +1,51 @@
 # Overview
 
 This service handles collecting, munging, and routing event data. It collects very loosely structured JSON blobs and pushes them into their respective environment's Kinesis stream. The primary handler loads up the record, parses the payload, and runs the corresponding event type's processor found in `types/`. If there is an error, or the event type is invalid, it will be pushed into an errors queue for debugging.
+
+# Sending Events
+
+The event payload is extremely simple. The only thing that's required is that it's JSON and that it has a `type` key. This `type` key should correspond to a class in `processor/types`.
+
+The `Processor` class handles iterating through and decoding the `Records` array sent from Kinesis. It will pass _only_ the `kinesis.data` portion of a given record.
+
+**NOTE:** Any event that is unknown or results in an exception will be pushed into the errors queue for further inspection by `Processor.badEvent()`.
+
+# Creating an Event
+
+To create a new event type create a new class in `processor/types`. For example, we could create `processor/types/foo.js` with a class `Foo` that extends `Type`. The only method that _must_ be defined by `Foo` is `process()` with no arguments.
+
+
+```node
+import { Type } from './base';
+
+export default class Foo extends Type {
+  process() {
+    // Business logic goes here.
+    // Your event's data will be in this.data.
+  }
+}
+```
+
+Once you've programmed `Foo.process()` you will need to register it with the `Types` factory:
+
+```node
+// In processor/index.js; there should be examples to work from.
+import Foo from './types/foo';
+Types.register('foo', Foo);
+```
+
+Once your class is created, registerd, and deployed, can send an event to the collector. An example event payload for `Foo` would might look like:
+
+```json
+{
+  "type": "foo",
+  "some_data": [1, 2, 3],
+  "add_whatever_you_like": "here",
+  "only_limited_by": { 
+    "kinesis": "stream-size-limits"
+  } 
+
+}
+```
+
+When this event is pushed into the Kinesis stream, `handlers.processEvent` kicks off and will run `Foo.process()` and your event's JSON will be in `this.data`. 

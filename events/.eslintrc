@@ -1,0 +1,39 @@
+{
+  "parser": "babel-eslint",
+  "globals": {},
+  "rules": {
+    "no-console": "off",
+    "indent": [
+      2,
+      2
+    ],
+    "quotes": [
+      2,
+      "single", {
+        "allowTemplateLiterals": true
+      }
+    ],
+    "linebreak-style": [
+      2,
+      "unix"
+    ],
+    "semi": [
+      2,
+      "always"
+    ]
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "modules": true,
+      "arrowFunctions": true,
+      "templateStrings": true
+    }
+  }
+}

@@ -5,7 +5,8 @@
   "main": "handler.js",
   "scripts": {
     "test": "../node_modules/.bin/mocha --compilers js:babel-register test/**/*-test.js test/*.js",
-    "deploy": "../node_modules/.bin/serverless deploy -v --stage=$STAGE"
+    "deploy": "../node_modules/.bin/serverless deploy -v --stage=$STAGE",
+    "lint": "../node_modules/.bin/eslint handler.js handler.js processor/"
   },
   "author": "",
   "license": "ISC",

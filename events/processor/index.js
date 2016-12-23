@@ -19,7 +19,7 @@ export default class Processor {
   process(callback) {
     if (!this.event.hasOwnProperty('Records') ||
         !Array.isArray(this.event.Records)) {
-      throw new Error("event.Record is missing; this is bad!");
+      throw new Error('event.Record is missing; this is bad!');
     }
     
     let success = [];
@@ -44,25 +44,25 @@ export default class Processor {
   getData(record) {
     if (!record.hasOwnProperty('kinesis') ||
         !record.kinesis.hasOwnProperty('data')) {
-      throw new RecordException("Malformed Kinesis record", record);
+      throw new RecordException('Malformed Kinesis record', record);
     }
 
     let jsonBlob = '';
     try {
       jsonBlob = new Buffer(record.kinesis.data, 'base64').toString('ascii');
     } catch (e) {
-      throw new RecordException("Could not base64 decode record", record);
+      throw new RecordException('Could not base64 decode record', record);
     }
 
     let data = {};
     try {
       data = JSON.parse(jsonBlob);
     } catch (e) {
-      throw new RecordException("Could not parse JSON from record data", record);
+      throw new RecordException('Could not parse JSON from record data', record);
     }
 
     if (!data.hasOwnProperty('type')) {
-      throw new RecordException("Event type not specified", record);
+      throw new RecordException('Event type not specified', record);
     }
 
     return data;
@@ -84,7 +84,7 @@ export default class Processor {
 
     this.kinesis.putRecord(params, (error, data) => {
       if (error) {
-        console.log(error);
+        console.log(error, data);
       }
     });
   }

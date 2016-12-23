@@ -1,4 +1,5 @@
 import { InvalidTypeClassException, InvalidTypeException } from './exceptions';
+import { Type } from './base';
 
 const Types = {
   _registeredTypes: new Map(),
@@ -21,6 +22,6 @@ const Types = {
     const instance = new cls(data);
     return instance;
   }
-}
+};
 
 export default Types;

@@ -1,0 +1,5 @@
+[![CircleCI](https://circleci.com/gh/goldstar/ops-lambda.svg?style=svg&circle-token=e058da35cc0463ce225b6050506595385f633a3b)](https://circleci.com/gh/goldstar/ops-lambda)
+
+# Overview
+
+This repository is home to Goldstar's [Lambda](https://aws.amazon.com/lambda/) functions. We manage Lambda functions using the [Serverless](https://serverless.com) framework.

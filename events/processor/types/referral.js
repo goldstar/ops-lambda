@@ -1,4 +1,4 @@
-import { TypeException, Type } from './index';
+import { Type } from './index';
 
 export class Referral extends Type {
   process() {
