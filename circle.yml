@@ -10,7 +10,7 @@ test:
   pre:
     - for service in $SERVERLESS_SERVICES; do cd ./$service && npm install && cd ..; done
   override: 
-    - for service in $SERVERLESS_SERVICES; do cd ./$service && npm lint && cd ..; done
+    - for service in $SERVERLESS_SERVICES; do cd ./$service && npm run lint && cd ..; done
     - for service in $SERVERLESS_SERVICES; do cd ./$service && npm test && cd ..; done
 
 deployment:
