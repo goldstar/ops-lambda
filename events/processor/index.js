@@ -85,8 +85,6 @@ export default class Processor {
     this.kinesis.putRecord(params, (error, data) => {
       if (error) {
         console.log(error);
-      } else {
-        console.log('BAD RECORD: ' + JSON.stringify(record));
       }
     });
   }

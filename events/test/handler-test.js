@@ -8,8 +8,8 @@ import Echo from '../processor/types/echo';
 describe('handlers', () => {
   describe('#processEvent', () => {
     it('should log data when there are records', sinon.test(function() {
-      const loggingStub = sinon.stub(Echo.prototype, 'log');
-      const callback = sinon.spy();
+      const loggingStub = this.stub(Echo.prototype, 'log');
+      const callback = this.spy();
       const event = {
         'Records': [
           {
@@ -20,7 +20,7 @@ describe('handlers', () => {
         ]
       }
 
-      handlers.processEvent(event, sinon.spy(), callback);
+      handlers.processEvent(event, this.spy(), callback);
       assert.isTrue(callback.calledOnce);
       assert.isTrue(callback.calledWith(null, "Success = 1, Errors = 0"));
       assert.isTrue(loggingStub.calledOnce);
