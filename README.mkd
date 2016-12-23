@@ -3,3 +3,7 @@
 # Overview
 
 This repository is home to Goldstar's [Lambda](https://aws.amazon.com/lambda/) functions. We manage Lambda functions using the [Serverless](https://serverless.com) framework.
+
+# Events
+
+The [Events](/goldstar/ops-lambda/blob/develop/events/README.mkd) framework allows you to push an event into a Kinesis stream and then have it routed to an appropriate JavaScript handler. For instance, you could send a purchase event to Kinesis and then have a small snippet of JavaScript enrich the data using a 3rd party API before saving it to Redshift or S3.
