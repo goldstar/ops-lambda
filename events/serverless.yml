@@ -21,3 +21,7 @@ functions:
     events:
       - stream:
           arn: "arn:aws:kinesis:us-west-1:341339899620:stream/goldstar-${opt:stage}-events-errors"
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
